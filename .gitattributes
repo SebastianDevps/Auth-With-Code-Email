@@ -1,0 +1,6 @@
+# Normaliza todos los archivos de texto para usar LF
+* text=auto
+
+# Si deseas aplicar CRLF a ciertos archivos
+*.bat text eol=crlf
+*.sh text eol=lf

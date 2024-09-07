@@ -1,0 +1,37 @@
+# Node modules
+node_modules/
+
+# Log files
+*.log
+
+# Environment files
+.env
+
+# Build output
+/build
+/dist
+
+# Dependency directories
+bower_components/
+
+# IDE directories
+.idea/
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Miscellaneous
+*.tgz
+*.gz
+
+# Coverage reports
+coverage/
+
+# npm package lock file (if you want to ignore it, but generally it's good to keep)
+package-lock.json
+yarn.lock
+
+# Next.js build output
+.next/
