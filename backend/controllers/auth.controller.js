@@ -1,7 +1,12 @@
 import bcryptjs from 'bcryptjs'
 import crypto from "crypto";
 import { generateTokenAndSetCookie } from '../utils/generateTokenAndSetCookie.js';
-import { sendPasswordResetEmail, sendVerificationEmail, sendWelcomeEmail } from '../email/emailSend.js';
+import { 
+    sendPasswordResetEmail, 
+    sendVerificationEmail, 
+    sendWelcomeEmail, 
+    sendResetSuccessEmail
+} from '../email/emailSend.js';
 import { User } from '../models/user.model.js'
 
 export const signup = async (req, res) => {
@@ -188,7 +193,10 @@ export const resetPassword = async (req, res) => {
 		});
 
 		if (!user) {
-			return res.status(400).json({ success: false, message: "Invalid or expired reset token" });
+			return res.status(400).json({ 
+                success: false, 
+                message: "Token de reinicio no válido o vencido" 
+            });
 		}
 
 		// update password
@@ -201,10 +209,16 @@ export const resetPassword = async (req, res) => {
 
 		await sendResetSuccessEmail(user.email);
 
-		res.status(200).json({ success: true, message: "Password reset successful" });
+		res.status(200).json({ 
+            success: true, 
+            message: "Restablecimiento de contraseña exitoso" 
+        });
 	} catch (error) {
 		console.log("Error in resetPassword ", error);
-		res.status(400).json({ success: false, message: error.message });
+		res.status(400).json({ 
+            success: false,
+            message: error.message 
+        });
 	}
 };
 
@@ -212,12 +226,21 @@ export const checkAuth = async (req, res) => {
 	try {
 		const user = await User.findById(req.userId).select("-password");
 		if (!user) {
-			return res.status(400).json({ success: false, message: "User not found" });
+			return res.status(400).json({ 
+                success: false, 
+                message: "Usuario no encontrado" 
+            });
 		}
 
-		res.status(200).json({ success: true, user });
+		res.status(200).json({ 
+            success: true, 
+            user 
+        });
 	} catch (error) {
 		console.log("Error in checkAuth ", error);
-		res.status(400).json({ success: false, message: error.message });
+		res.status(400).json({ 
+            success: false,
+            message: error.message 
+        });
 	}
 };
