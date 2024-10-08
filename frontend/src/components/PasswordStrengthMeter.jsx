@@ -15,11 +15,11 @@ const PasswordCriteria = ({ password }) => {
             {criteria.map((item, index) => (
                 <div key={item.label} className='flex items-center text-xs'>
                     {item.met ? (
-                        <Check className='size-4 text-green-500 mr-2' />
+                        <Check className='size-4 text-blue-500 mr-2' />
                     ) : (
                         <X className='size-4 text-gray-500 mr-2' />
                     )}
-                    <span className={item.label ? "text-green-500" : "text-gray-500"}>{item.label}</span>
+                    <span className={item.label ? "text-blue-500" : "text-gray-500"}>{item.label}</span>
                 </div>
             ))}
         </div>
@@ -37,14 +37,12 @@ const PasswordStrengthMeter = ({ password }) => {
         return strength;
     };
     
-    const strength = getStrength(password);
-    
     const getColor = (strength) => {
-        if (strength === 0) return "red-500";
-        if (strength === 1) return "red-400";
-        if (strength === 2) return "yellow-500";
-        if (strength === 3) return "yellow-400";
-        return "green-500";
+        if (strength === 0) return "bg-red-500";
+        if (strength === 1) return "bg-red-600";
+        if (strength === 2) return "bg-orange-500";
+        if (strength === 3) return "bg-yellow-400";
+        return "bg-green-500";
     };
 
     const getStrengthText = (strength) => {
@@ -54,6 +52,8 @@ const PasswordStrengthMeter = ({ password }) => {
         if (strength === 3) return "Buena";
         return "Fuerte";
     };
+
+    const strength = getStrength(password);
 
     return (
         <div className='mt-2'>
@@ -66,7 +66,7 @@ const PasswordStrengthMeter = ({ password }) => {
                 {[...Array(4)].map((_, index) => (
                     <div
                         key={index}
-                        className={`h-1 w-1/4 rounded-full transition-colors duration-300 ${index < strength ? `bg-${getColor(strength)}` : "bg-gray-600"} `}
+                        className={`h-[6px] w-1/4 rounded-full transition-colors duration-300 ${index < strength ? getColor(strength) : "bg-gray-600 opacity-30"} `}
                     />
                 ))}
             </div>
