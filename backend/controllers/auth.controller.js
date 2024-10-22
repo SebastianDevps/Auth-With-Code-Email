@@ -152,7 +152,7 @@ export const forgotPassword = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(400).json({
+            return res.status(404).json({
                 success: false,
                 message: "Usuario no encontrado"
             })
@@ -226,7 +226,7 @@ export const checkAuth = async (req, res) => {
 	try {
 		const user = await User.findById(req.userId).select("-password");
 		if (!user) {
-			return res.status(400).json({ 
+			return res.status(404).json({ 
                 success: false, 
                 message: "Usuario no encontrado" 
             });
@@ -238,7 +238,7 @@ export const checkAuth = async (req, res) => {
         });
 	} catch (error) {
 		console.log("Error in checkAuth ", error);
-		res.status(400).json({ 
+		res.status(500).json({ 
             success: false,
             message: error.message 
         });
