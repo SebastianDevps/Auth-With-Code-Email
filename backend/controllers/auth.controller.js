@@ -101,7 +101,7 @@ export const login = async (req, res) => {
     try {
         const user = await User.findOne({ email })
         if (!user) {
-            return res.status(400).json({
+            return res.status(401).json({
                 success: false,
                 message: "Usuario y/o Contraseña incorrecto"
             })
@@ -109,7 +109,7 @@ export const login = async (req, res) => {
 
         const isPasswordValid = await bcryptjs.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(400).json({
+            return res.status(401).json({
                 success: false,
                 message: "Usuario y/o Contraseña incorrecto"
             })
